@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,7 +12,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -113,33 +116,51 @@ fun HomeScreen(
 @Composable
 fun RecommandationItem(
     modifier: Modifier = Modifier,
-    data: Recommandation, // Les données de l'anime à afficher
-    onPictureClick: () -> Unit, // Action à effectuer lors du clic sur l'image de l'anime
-    animeViewModel: AnimeViewModel // ViewModel associé à l'anime
+    data: Recommandation,
+    onPictureClick: () -> Unit,
+    animeViewModel: AnimeViewModel
 ) {
     Column(
-        modifier = modifier
-            .padding(8.dp), // Ajoute un padding de 8dp autour de la colonne
-        horizontalAlignment = Alignment.CenterHorizontally // Centre les éléments horizontalement dans la colonne
+        modifier = modifier.padding(8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         GlideImage(
-            model = data.pictureUrl, // URL de l'image à charger
-            contentDescription = "Image Anime", // Description de l'image pour l'accessibilité
+            model = data.pictureUrl,
+            contentDescription = "Image Anime",
             loading = placeholder(R.mipmap.ic_launcher_round),
             failure = placeholder(R.mipmap.ic_launcher),
             contentScale = ContentScale.Fit,
             modifier = Modifier
-                .height(300.dp) // Hauteur de l'image
-                .fillMaxWidth() // Remplit toute la largeur disponible
-                .clickable { onPictureClick.invoke() } // Rend l'image cliquable, invoque onPictureClick lors du clic
+                .height(300.dp)
+                .fillMaxWidth()
+                .clickable { onPictureClick.invoke() }
         )
-        Text( // Affiche le titre de l'anime
-            text = data.title.take(30), // Prend les 30 premiers caractères du titre
-            modifier = Modifier.padding(8.dp)
-                .clickable { onPictureClick.invoke() },
-            style = MaterialTheme.typography.titleMedium.copy(color = Color.Green), // Style du texte
-            textAlign = TextAlign.Center // Centre le texte horizontalement
-        )
+        // Utilisation d'un Box pour contenir le texte et le Divider
+        Box(
+            modifier = Modifier.fillMaxWidth(), // Prend toute la largeur disponible pour l'alignement
+            contentAlignment = Alignment.Center
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.widthIn(max = 200.dp) // Optionnel : Limite la largeur pour un aspect plus centré
+            ) {
+                Text(
+                    text = data.title.take(30),
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .clickable { onPictureClick.invoke() },
+                    style = MaterialTheme.typography.titleMedium.copy(color = Color.Green),
+                    textAlign = TextAlign.Center
+                )
+                Divider(
+                    color = Color.Green,
+                    thickness = 2.dp,
+                    modifier = Modifier
+                        .padding(top = 4.dp) // Optionnel : Espacement au-dessus du Divider
+                        .fillMaxWidth() // Aligne le Divider avec la largeur du Text
+                )
+            }
+        }
     }
 }
 

@@ -19,7 +19,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    com.example.wikianimetest.AppNavigation()
+                     com.example.wikianimetest.AppNavigation()
                 }
             }
         }

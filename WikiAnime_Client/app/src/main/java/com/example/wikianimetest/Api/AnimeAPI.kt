@@ -20,11 +20,6 @@ object AnimeAPI{
 
     private const val URL_SERVER = "http://10.0.2.2:8080"
 
-    /*fun getOneAnime(id : Int): GetAnimeBean{
-        val json = sendGetAnime("/$id")
-        return gson.fromJson(json, GetAnimeBean::class.java)
-    }*/
-
     fun recommandationAll() : Recommandation {
         val json = sendGetRecommandation(url = "/recommendations")
         return gson.fromJson(json, Recommandation::class.java)
@@ -53,16 +48,6 @@ object AnimeAPI{
             it.body.string()
         }
     }
-
-    // A UTILISER PLUS TARD
-
-    //
-    //    fun searchAnime(name : String?) : AnimeBean{
-    //        val json = sendGet("/search?q=$name")
-    //        val data = gson.fromJson(json, AnimeBean::class.java)
-    //        return data
-    //    }
-
     // Get Anime
     fun sendGetAnime(url: String): String {
         val finalURL = "https://myanimelist.p.rapidapi.com/anime$url"
@@ -82,9 +67,6 @@ object AnimeAPI{
         }
     }
 
-
-
-
     fun sendGetRecommandation(url: String): String {
         val finalURL = "https://myanimelist.p.rapidapi.com/v2/anime$url"
         println("finalURL : $finalURL")
@@ -103,10 +85,3 @@ object AnimeAPI{
         }
     }
 }
-
-/* fun main() {
-    var test1 = AnimeAPI.recommandationAll()
-    println(test1.recommendations[0].recommendation.myanimelist_id)
-    println(AnimeAPI.getOneAnime(test1.recommendations[0].recommendation.myanimelist_id))
-
-} */

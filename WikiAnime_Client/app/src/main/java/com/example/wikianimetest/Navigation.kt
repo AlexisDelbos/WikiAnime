@@ -17,7 +17,6 @@ import com.example.wikianimetest.viewmodel.AnimeViewModel
 sealed class Routes(val route: String) {
 
     // Route 1
-
     data object HomePage : Routes("HomePage")
     //Route 2
     data object PagePrincipal : Routes("PagePrincipal")
